@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Marca;
+use Illuminate\Http\Request;    
+
+class MarcaController extends Controller
+{
+
+    public function __construct(Marca $marca){
+        $this->marca = $marca;
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $marcas = $this->marca->all();
+        return $marcas; 
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $marca = $this->marca->create($request->all());
+        return $marca;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  Integer
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return $this->marca->find($id);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Integer
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        
+        return $this->marca->find($id)->update($request->all());;
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Integer
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        return $this->marca->find($id)->delete();
+        
+    }
+}
