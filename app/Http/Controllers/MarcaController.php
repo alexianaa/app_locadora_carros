@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Marca;
-use Illuminate\Http\Request;  
+use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Type\Integer;  
 use App\Http\Requests\StoreMarcaRequest;
 use App\Http\Requests\UpdateMarcaRequest;
@@ -79,7 +79,17 @@ class MarcaController extends Controller
             return response()->json(['erro' => 'Impossível realizar atualização, recurso pesquisado não existe'], 404);
         }
 
-        $marca->update($request->all());
+        $image = $request->file('imagem');
+        if($image){
+            Storage::disk('public')->delete($marca->imagem);
+            $image_urn = $image->store('imagens','public'); 
+            $marca->update(['imagem' => $image_urn]);
+        }
+
+        if($request->nome) {
+            $marca->update(['nome' => $request->nome]);
+        }
+
         return response()->json(['msg' => 'A atualização foi realizada com sucesso'],200);
     }
 
@@ -92,9 +102,12 @@ class MarcaController extends Controller
     public function destroy($id)
     {
         $marca = $this->marca->find($id);
+
         if($marca === null){
             return response()->json(['erro' => 'Impossível realizar a exclusão, recurso pesquisado não existe'])->setStatusCode(404);
         }
+
+        if($marca->imagem) Storage::disk('public')->delete($marca->imagem);
         $marca->delete();
         return response()->json(['msg' => 'A exclusão foi realizada com sucesso'],200);
     }
