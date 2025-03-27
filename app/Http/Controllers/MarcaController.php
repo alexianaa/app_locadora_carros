@@ -38,14 +38,14 @@ class MarcaController extends Controller
         $request->validated();
 
         $image = $request->file('imagem');
-        $image_urn = $image->store('imagens','public'); 
+        $image_urn = $image->store('imagens/marcas','public'); 
 
         $marca = $this->marca->create([
             'nome' => $request->nome,
             'imagem' => $image_urn
         ]);
 
-        return response()->json($marca);
+        return response()->json($marca, 200);
     }
 
     /**
@@ -82,7 +82,7 @@ class MarcaController extends Controller
         $image = $request->file('imagem');
         if($image){
             Storage::disk('public')->delete($marca->imagem);
-            $image_urn = $image->store('imagens','public'); 
+            $image_urn = $image->store('imagens/marcas','public'); 
             $marca->update(['imagem' => $image_urn]);
         }
 
