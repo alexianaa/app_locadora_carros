@@ -18,12 +18,35 @@ class ModeloController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $modelos = $this->modelo->with('marca')->get();
+        $modelos = [];
+
+        if($request->has('atributos_marca')){
+            $atributos_marca = $request->atributos_marca;
+            $modelos = $this->modelo->with("marca:id,$atributos_marca");
+        }else{
+            $modelos = $this->modelo->with("marca");
+        }
+
+        if($request->has('filtro')){
+            $filtros = explode(';',$request->filtro);
+            foreach ($filtros as $key => $filtro) {
+                $condicoes = explode(':',$filtro);
+                $modelos = $modelos->where($condicoes[0], $condicoes[1], $condicoes[2]);
+            }
+        }
+
+        if($request->has('atributos')){
+            $atributos = $request->atributos;
+            $modelos = $modelos->selectRaw($atributos)->get();
+        }else{
+            $modelos = $modelos->get();
+        }
+
         return response()->json($modelos); 
     }
 
