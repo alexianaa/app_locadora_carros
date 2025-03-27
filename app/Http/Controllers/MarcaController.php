@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Marca;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Type\Integer;  
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreMarcaRequest;
 use App\Http\Requests\UpdateMarcaRequest;
+use App\Repositories\MarcaRepository;
 
 class MarcaController extends Controller
 {
@@ -17,13 +19,23 @@ class MarcaController extends Controller
     }
     /**
      * Display a listing of the resource.
-     *
+     * @param Request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $marcas = $this->marca->with('modelos')->get();
-        return response()->json($marcas); 
+        $marcaRepository = new MarcaRepository($this->marca);
+
+        if($request->has('atributos_modelos')){
+            $atributos_modelos = "modelos:id,$request->atributos_modelos";
+            $marcaRepository->selectAtributosRelacionados($atributos_modelos);
+        }else{ $marcaRepository->selectAtributosRelacionados("modelos"); }
+
+        if($request->has('filtro')) $marcaRepository->filtro($request->filtro);
+
+        if($request->has('atributos')) $marcaRepository->selectAtributos($request->atributos); 
+
+        return response()->json($marcaRepository->getResultado(), 200); 
     }
 
 
