@@ -84,24 +84,16 @@ class ModeloController extends Controller
             return response()->json(['erro' => 'Impossível realizar atualização, recurso pesquisado não existe'], 404);
         }
 
+        $modelo->fill($request->all());
+
         $image = $request->file('imagem');
         if($image){
             Storage::disk('public')->delete($modelo->imagem);
-            $image_urn = $image->store('imagens/modelos','public'); 
-            $modelo->update(['imagem' => $image_urn]);
+            $modelo->imagem = $image->store('imagens/modelos','public'); 
         }
  
-        $modelo->update([
-            'nome' => $request->nome,
-            'marca_id' => $request->marca_id,
-            'numero_portas' => $request->numero_portas,
-            'lugares' => $request->lugares,
-            'air_bag' => $request->air_bag,
-            'abs' => $request->abs,
-        ]);
-        
-
-        return response()->json(['msg' => 'A atualização foi realizada com sucesso'],200);
+        $modelo->save();
+        return response()->json(['msg' => 'A atualização foi realizada com sucesso', 'modelo' => $modelo],200);
     }
 
     /**

@@ -79,18 +79,16 @@ class MarcaController extends Controller
             return response()->json(['erro' => 'Impossível realizar atualização, recurso pesquisado não existe'], 404);
         }
 
+        $marca->fill($request->all());
+
         $image = $request->file('imagem');
         if($image){
             Storage::disk('public')->delete($marca->imagem);
-            $image_urn = $image->store('imagens/marcas','public'); 
-            $marca->update(['imagem' => $image_urn]);
+            $marca->imagem = $image->store('imagens/marcas','public'); 
         }
 
-        if($request->nome) {
-            $marca->update(['nome' => $request->nome]);
-        }
-
-        return response()->json(['msg' => 'A atualização foi realizada com sucesso'],200);
+        $marca->save();
+        return response()->json(['msg' => 'A atualização foi realizada com sucesso', 'marca' => $marca],200);
     }
 
     /**
