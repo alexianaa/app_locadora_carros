@@ -13,12 +13,14 @@ class AuthController extends Controller
         else return response()->json(['erro' => 'Usuário ou senha inválido!'], 403);
     }
 
-    public function logout(Request $request){
-        return 'logout';
+    public function logout(){
+        auth('api')->logout();
+        return response()->json(["msg" => "Logout realizado com sucesso."], 200);;
     }
 
-    public function refresh(Request $request){
-        return 'refresh';
+    public function refresh(){
+        $token = auth('api')->refresh();
+        return response()->json($token, 200);
     }
 
     public function me(){
