@@ -6,6 +6,8 @@ A aplicação serve como um estudo de CRUD e criação de API com laravel php, n
 
 É possível acessar a documentação para importar no postman usando o arquivo **locadora.postman_collection.json**.
 
+> Rotas protegidas pela autenticação jwt
+
 ## Funcionalidades
 
 Simulador de locadora de carros
@@ -25,6 +27,13 @@ Para cada um acima é possível:
 5. Cadastrar
 6. Atualizar
 7. Excluir
+
+Ainda há as rotas de:
+
+1. login: devolve um token necessário para as rotas protegidas
+2. logout: invalida o token
+3. refresh: atualiza o token
+4. me: traz informações não sensíveis do usuário logado
 
 ## Relacionamentos
 
