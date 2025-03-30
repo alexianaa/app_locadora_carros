@@ -17,7 +17,8 @@ A aplicação serve como um estudo de CRUD e criação de API com laravel php, n
 5. php artisan jwt:secret
 6. npm install
 7. npm run dev
-8. php artisan serve
+8. php artisan storage:link
+9. php artisan serve
 
 ## Funcionalidades
 

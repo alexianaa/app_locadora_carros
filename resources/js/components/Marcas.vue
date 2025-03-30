@@ -24,7 +24,7 @@
                         help="nomeHelp"
                         texto-ajuda="Opcional. Informe o Nome da marca"
                       > 
-                        <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID">
+                        <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="Nome da Marca">
                       </input-component>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
             <!-- LISTAGEM DE MARCAS -->
             <card-component titulo="Relação de marcas">
               <template v-slot:conteudo>
-                <table-component></table-component>
+                <table-component :dados="marcas" :titulos="['ID','Nome','Imagem']"></table-component>
               </template>
               <template v-slot:rodape>
                 <button type="submit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalMarca" >Adicionar</button>
@@ -92,7 +92,6 @@
         <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
       </template>
     </modal-component>
-    
   </div>
 </template>
 
@@ -104,8 +103,12 @@
         nomeMarca: '',
         arquivoImagem: [],
         transacaoStatus: '',
-        detalhes: {}
+        detalhes: {},
+        marcas: []
       }
+    },
+    mounted() {
+      this.carregarLista();
     },
     computed: {
       token() {
@@ -118,6 +121,18 @@
       }
     },
     methods: {
+      carregarLista(){
+        let config = {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': this.token
+          }
+        }
+
+        axios.get(this.urlBase, config)
+          .then(response => {this.marcas = response.data})
+          .catch(erro => {console.log(erro)})
+      },
       carregarImagem(e){
         this.arquivoImagem = e.target.files
       },
@@ -146,7 +161,6 @@
               mensagem: erros.response.data.message,
               dados: erros.response.data.errors
             }
-
           });
       }
     }

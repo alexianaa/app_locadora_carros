@@ -5515,7 +5515,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -5524,8 +5523,12 @@ __webpack_require__.r(__webpack_exports__);
       nomeMarca: '',
       arquivoImagem: [],
       transacaoStatus: '',
-      detalhes: {}
+      detalhes: {},
+      marcas: []
     };
+  },
+  mounted: function mounted() {
+    this.carregarLista();
   },
   computed: {
     token: function token() {
@@ -5536,11 +5539,25 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    carregarLista: function carregarLista() {
+      var _this = this;
+      var config = {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': this.token
+        }
+      };
+      axios.get(this.urlBase, config).then(function (response) {
+        _this.marcas = response.data;
+      })["catch"](function (erro) {
+        console.log(erro);
+      });
+    },
     carregarImagem: function carregarImagem(e) {
       this.arquivoImagem = e.target.files;
     },
     salvar: function salvar() {
-      var _this = this;
+      var _this2 = this;
       var formData = new FormData();
       formData.append('nome', this.nomeMarca);
       formData.append('imagem', this.arquivoImagem[0]);
@@ -5552,13 +5569,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.post(this.urlBase, formData, config).then(function (response) {
-        _this.transacaoStatus = 'success';
-        _this.detalhes = {
+        _this2.transacaoStatus = 'success';
+        _this2.detalhes = {
           mensagem: "ID do registro: " + response.data.id
         };
       })["catch"](function (erros) {
-        _this.transacaoStatus = 'danger';
-        _this.detalhes = {
+        _this2.transacaoStatus = 'danger';
+        _this2.detalhes = {
           mensagem: erros.response.data.message,
           dados: erros.response.data.errors
         };
@@ -5635,23 +5652,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['dados', 'titulos']
+});
 
 /***/ }),
 
@@ -28003,7 +28007,7 @@ var render = function () {
                                     type: "number",
                                     id: "inputId",
                                     "aria-describedby": "idHelp",
-                                    placeholder: "ID",
+                                    placeholder: "Nome da Marca",
                                   },
                                 }),
                               ]
@@ -28041,7 +28045,14 @@ var render = function () {
                 {
                   key: "conteudo",
                   fn: function () {
-                    return [_c("table-component")]
+                    return [
+                      _c("table-component", {
+                        attrs: {
+                          dados: _vm.marcas,
+                          titulos: ["ID", "Nome", "Imagem"],
+                        },
+                      }),
+                    ]
                   },
                   proxy: true,
                 },
@@ -28321,58 +28332,39 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("table", { staticClass: "table table-hover" }, [
+    _c("thead", [
+      _c(
+        "tr",
+        _vm._l(_vm.titulos, function (t, index) {
+          return _c("th", { key: index, attrs: { scope: "col" } }, [
+            _vm._v(_vm._s(t)),
+          ])
+        }),
+        0
+      ),
+    ]),
+    _vm._v(" "),
+    _c(
+      "tbody",
+      _vm._l(_vm.dados, function (m) {
+        return _c("tr", { key: m.id }, [
+          _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(m.id))]),
+          _vm._v(" "),
+          _c("td", [_vm._v(_vm._s(m.nome))]),
+          _vm._v(" "),
+          _c("td", [
+            _c("img", {
+              attrs: { src: "/storage/" + m.imagem, width: "30", height: "30" },
+            }),
+          ]),
+        ])
+      }),
+      0
+    ),
+  ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table table-hover" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("First")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Last")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("Handle")]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("tbody", [
-        _c("tr", [
-          _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Mark")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Otto")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("@mdo")]),
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Jacob")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Thornton")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("@fat")]),
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
-          _vm._v(" "),
-          _c("td", { attrs: { colspan: "2" } }, [_vm._v("Larry the Bird")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("@twitter")]),
-        ]),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
