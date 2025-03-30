@@ -32,7 +32,6 @@
           dadosFiltrados.push(itemFiltrado);
         })
         
-        console.log(dadosFiltrados)
         return dadosFiltrados;
       }
     }

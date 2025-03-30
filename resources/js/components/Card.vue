@@ -6,7 +6,7 @@
       <slot name="conteudo"></slot>
     </div>
 
-    <div class="card-footer d-grid d-md-flex justify-content-md-end"> 
+    <div class="card-footer"> 
       <slot name="rodape"></slot>
     </div>
       

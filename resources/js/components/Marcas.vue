@@ -37,7 +37,7 @@
             <!-- LISTAGEM DE MARCAS -->
             <card-component titulo="Relação de marcas">
               <template v-slot:conteudo>
-                <table-component :dados="marcas" :titulos="{
+                <table-component :dados="marcas.data" :titulos="{
                   id: {titulo: 'ID', dado: 'text'},
                   nome: {titulo: 'NOME', dado: 'text'},
                   imagem: {titulo: 'IMAGEM', dado: 'img'},
@@ -45,7 +45,18 @@
                 }"></table-component>
               </template>
               <template v-slot:rodape>
-                <button type="submit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalMarca" >Adicionar</button>
+                <div class="row">
+                  <div class="col-10">
+                    <paginate-component>
+                      <li :class="l.active? 'page-item active' : 'page-item'" v-for="l, number in marcas.links" :key="number" @click="paginacao(l)">
+                        <a class="page-link" href="#" v-html="l.label"></a>
+                      </li>
+                    </paginate-component>
+                  </div>
+                  <div class="col">
+                    <button type="submit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalMarca" >Adicionar</button>
+                  </div>
+                </div>
               </template>
             </card-component>
         </div>
@@ -109,7 +120,9 @@
         arquivoImagem: [],
         transacaoStatus: '',
         detalhes: {},
-        marcas: []
+        marcas: {
+          data: []
+        }
       }
     },
     mounted() {
@@ -126,6 +139,12 @@
       }
     },
     methods: {
+      paginacao(l){
+        if(l.url != null) {
+          this.urlBase = l.url;
+          this.carregarLista();
+        }
+      },
       carregarLista(){
         let config = {
           headers: {
