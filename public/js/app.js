@@ -5515,6 +5515,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -5652,9 +5657,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['dados', 'titulos']
+  props: ['dados', 'titulos'],
+  computed: {
+    dadosFiltrados: function dadosFiltrados() {
+      var dadosFiltrados = [];
+      var colunas = Object.keys(this.titulos);
+      this.dados.map(function (item, chave) {
+        var itemFiltrado = {};
+        colunas.forEach(function (campo) {
+          itemFiltrado[campo] = item[campo];
+        });
+        dadosFiltrados.push(itemFiltrado);
+      });
+      console.log(dadosFiltrados);
+      return dadosFiltrados;
+    }
+  }
 });
 
 /***/ }),
@@ -28049,7 +28070,15 @@ var render = function () {
                       _c("table-component", {
                         attrs: {
                           dados: _vm.marcas,
-                          titulos: ["ID", "Nome", "Imagem"],
+                          titulos: {
+                            id: { titulo: "ID", dado: "text" },
+                            nome: { titulo: "NOME", dado: "text" },
+                            imagem: { titulo: "IMAGEM", dado: "img" },
+                            created_at: {
+                              titulo: "DATA DE CRIAÇÃO",
+                              dado: "date",
+                            },
+                          },
                         },
                       }),
                     ]
@@ -28337,9 +28366,15 @@ var render = function () {
       _c(
         "tr",
         _vm._l(_vm.titulos, function (t, index) {
-          return _c("th", { key: index, attrs: { scope: "col" } }, [
-            _vm._v(_vm._s(t)),
-          ])
+          return _c(
+            "th",
+            {
+              key: index,
+              staticClass: "text-uppercase",
+              attrs: { scope: "col" },
+            },
+            [_vm._v(_vm._s(t.titulo))]
+          )
         }),
         0
       ),
@@ -28347,18 +28382,27 @@ var render = function () {
     _vm._v(" "),
     _c(
       "tbody",
-      _vm._l(_vm.dados, function (m) {
-        return _c("tr", { key: m.id }, [
-          _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(m.id))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(m.nome))]),
-          _vm._v(" "),
-          _c("td", [
-            _c("img", {
-              attrs: { src: "/storage/" + m.imagem, width: "30", height: "30" },
-            }),
-          ]),
-        ])
+      _vm._l(_vm.dadosFiltrados, function (obj, chave) {
+        return _c(
+          "tr",
+          { key: chave },
+          _vm._l(obj, function (valor, chaveValor) {
+            return _c("td", { key: chaveValor }, [
+              _vm.titulos[chaveValor].dado == "img"
+                ? _c("span", [
+                    _c("img", {
+                      attrs: {
+                        src: "/storage/" + valor,
+                        width: "30",
+                        height: "30",
+                      },
+                    }),
+                  ])
+                : _c("span", [_vm._v(_vm._s(valor))]),
+            ])
+          }),
+          0
+        )
       }),
       0
     ),
