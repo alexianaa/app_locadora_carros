@@ -6,18 +6,35 @@
                 <div class="card-header">Buscar de marcas</div>
 
                 <div class="card-body">
-                  <div class="mb-3">
-                    <label for="inputID" class="form-label">ID</label>
-                    <input type="number" class="form-control" id="inputID" aria-describedby="idHelp" placeholder="ID">
-                    <div id="idHelp" class="form-text">Opcional. Informe o ID do registro</div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="inputNome" class="form-label">Nome</label>
-                    <input type="number" class="form-control" id="inputNome" aria-describedby="nomeHelp" placeholder="Nome da marca">
-                    <div id="nomeHelp" class="form-text">Opcional. Informe o nome da marca</div>
-                  </div>
-                  <button type="submit" class="btn btn-primary btn-sm">Pesquisar</button>
+                    <div class="row">
+                        <div class="col mb-3">
+                          <input-component 
+                            titulo="ID" 
+                            id="inputId"
+                            help="idHelp"
+                            texto-ajuda="Opcional. Informe o ID da Marca"
+                          > 
+                            <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID">
+                          </input-component>
+                        </div>
+                        <div class="col mb-3">
+                          <input-component 
+                            titulo="Nome" 
+                            id="inputNome"
+                            help="nomeHelp"
+                            texto-ajuda="Opcional. Informe o Nome da marca"
+                          > 
+                            <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID">
+                          </input-component>
+                        </div>
+                    </div>
+
                 </div>
+
+                <div class="card-footer d-grid d-md-flex justify-content-md-end"> 
+                    <button type="submit" class="btn btn-primary btn-sm">Pesquisar</button>
+                </div>
+
             </div>
         </div>
     </div>
