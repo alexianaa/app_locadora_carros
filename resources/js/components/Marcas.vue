@@ -2,7 +2,6 @@
   <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-
           <!-- BUSCA DE MARCAS -->
            <card-component titulo="Buscar marcas">
               <template v-slot:conteudo>
@@ -37,12 +36,17 @@
             <!-- LISTAGEM DE MARCAS -->
             <card-component titulo="Relação de marcas">
               <template v-slot:conteudo>
-                <table-component :dados="marcas.data" :titulos="{
-                  id: {titulo: 'ID', dado: 'text'},
-                  nome: {titulo: 'NOME', dado: 'text'},
-                  imagem: {titulo: 'IMAGEM', dado: 'img'},
-                  created_at: {titulo: 'DATA DE CRIAÇÃO', dado: 'date'},
-                }"></table-component>
+                <table-component 
+                  :dados="marcas.data" 
+                  :visualizar="{visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaVisualizar'}"
+                  :editar="{visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaEditar'}"
+                  :excluir="{visivel: true, dataToggle: 'modal', dataTarget: '#modalMarcaExcluir'}"
+                  :titulos="{
+                    id: {titulo: 'ID', dado: 'text'},
+                    nome: {titulo: 'NOME', dado: 'text'},
+                    imagem: {titulo: 'IMAGEM', dado: 'img'},
+                    created_at: {titulo: 'DATA DE CRIAÇÃO', dado: 'date'},
+                  }"></table-component>
               </template>
               <template v-slot:rodape>
                 <div class="row">
@@ -62,7 +66,7 @@
         </div>
     </div>
 
-    <!-- MODAL -->
+    <!-- MODAL ADICIONA MARCA -->
     <modal-component id="modalMarca" titulo="Adicionar Marca">
 
       <template v-slot:alertas>
@@ -108,6 +112,26 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
         <button type="button" class="btn btn-primary" @click="salvar()">Salvar</button>
       </template>
+    </modal-component>
+
+    <!-- MODAL VER MARCA -->
+    <modal-component id="modalMarcaVisualizar" titulo="Visualizar Marca">
+      <template v-slot:alertas></template>
+      <template v-slot:conteudo>
+        <input-component titulo="ID">
+          <input type="text" class="form-control mb-3" :value="$store.state.item.id" disabled>
+        </input-component>
+        <input-component titulo="Nome">
+          <input type="text" class="form-control" :value="$store.state.item.nome" disabled>
+        </input-component>
+        <input-component titulo="Imagem">
+          <img v-if="$store.state.item.imagem" :src="'/storage/'+$store.state.item.imagem">
+        </input-component>
+        <input-component titulo="Data de criação">
+          <input type="text" class="form-control" :value="$store.state.item.created_at" disabled>
+        </input-component>
+      </template>
+      <template v-slot:rodape></template>
     </modal-component>
   </div>
 </template>
