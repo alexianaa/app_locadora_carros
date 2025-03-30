@@ -6822,6 +6822,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6854,6 +6884,32 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    excluir: function excluir() {
+      var _this = this;
+      var confirmacao = confirm('Tem certeza que deseja remover esta marca?');
+      if (!confirmacao) return false;
+      var url = this.urlBase + '/' + this.$store.state.item.id;
+      var formData = new FormData();
+      formData.append('_method', 'delete');
+      var config = {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': this.token
+        }
+      };
+      axios.post(url, formData, config).then(function (response) {
+        _this.transacaoStatus = 'success';
+        _this.detalhes = {
+          mensagem: response.data.msg
+        };
+      })["catch"](function (errors) {
+        _this.transacaoStatus = 'danger';
+        _this.detalhes = {
+          mensagem: errors.response.data.erro
+        };
+      });
+      this.carregarLista();
+    },
     pesquisar: function pesquisar() {
       var filtro = '';
       for (var chave in this.busca) {
@@ -6875,7 +6931,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     carregarLista: function carregarLista() {
-      var _this = this;
+      var _this2 = this;
       var url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro;
       console.log(url);
       var config = {
@@ -6885,7 +6941,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.get(url, config).then(function (response) {
-        _this.marcas = response.data;
+        _this2.marcas = response.data;
       })["catch"](function (erro) {
         console.log(erro);
       });
@@ -6894,7 +6950,7 @@ __webpack_require__.r(__webpack_exports__);
       this.arquivoImagem = e.target.files;
     },
     salvar: function salvar() {
-      var _this2 = this;
+      var _this3 = this;
       var formData = new FormData();
       formData.append('nome', this.nomeMarca);
       formData.append('imagem', this.arquivoImagem[0]);
@@ -6906,17 +6962,18 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.post(this.urlBase, formData, config).then(function (response) {
-        _this2.transacaoStatus = 'success';
-        _this2.detalhes = {
+        _this3.transacaoStatus = 'success';
+        _this3.detalhes = {
           mensagem: "ID do registro: " + response.data.id
         };
       })["catch"](function (erros) {
-        _this2.transacaoStatus = 'danger';
-        _this2.detalhes = {
+        _this3.transacaoStatus = 'danger';
+        _this3.detalhes = {
           mensagem: erros.response.data.message,
           dados: erros.response.data.errors
         };
       });
+      this.carregarLista();
     }
   }
 });
@@ -6996,6 +7053,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
 //
 //
 //
@@ -29821,6 +29880,100 @@ var render = function () {
           },
         ]),
       }),
+      _vm._v(" "),
+      _c("modal-component", {
+        attrs: { id: "modalMarcaExcluir", titulo: "Excluir Marca" },
+        scopedSlots: _vm._u(
+          [
+            {
+              key: "alertas",
+              fn: function () {
+                return [
+                  _vm.transacaoStatus == "success"
+                    ? _c("alert-component", {
+                        attrs: {
+                          message: "Marca excluida com sucesso",
+                          detalhes: _vm.detalhes,
+                          type: _vm.transacaoStatus,
+                        },
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.transacaoStatus == "danger"
+                    ? _c("alert-component", {
+                        attrs: {
+                          message: "Erro ao excluir marca: ",
+                          detalhes: _vm.detalhes,
+                          type: _vm.transacaoStatus,
+                        },
+                      })
+                    : _vm._e(),
+                ]
+              },
+              proxy: true,
+            },
+            _vm.transacaoStatus != "success"
+              ? {
+                  key: "conteudo",
+                  fn: function () {
+                    return [
+                      _c("input-component", { attrs: { titulo: "ID" } }, [
+                        _c("input", {
+                          staticClass: "form-control mb-3",
+                          attrs: { type: "text", disabled: "" },
+                          domProps: { value: _vm.$store.state.item.id },
+                        }),
+                      ]),
+                      _vm._v(" "),
+                      _c("input-component", { attrs: { titulo: "Nome" } }, [
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "text", disabled: "" },
+                          domProps: { value: _vm.$store.state.item.nome },
+                        }),
+                      ]),
+                    ]
+                  },
+                  proxy: true,
+                }
+              : null,
+            {
+              key: "rodape",
+              fn: function () {
+                return [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      attrs: { type: "button", "data-bs-dismiss": "modal" },
+                    },
+                    [_vm._v("Fechar")]
+                  ),
+                  _vm._v(" "),
+                  _vm.transacaoStatus != "success"
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.excluir()
+                            },
+                          },
+                        },
+                        [_vm._v("Excluir")]
+                      )
+                    : _vm._e(),
+                ]
+              },
+              proxy: true,
+            },
+          ],
+          null,
+          true
+        ),
+      }),
     ],
     1
   )
@@ -30029,6 +30182,11 @@ var render = function () {
                         "data-bs-toggle": _vm.editar.dataToggle,
                         "data-bs-target": _vm.editar.dataTarget,
                       },
+                      on: {
+                        click: function ($event) {
+                          return _vm.setStore(obj)
+                        },
+                      },
                     },
                     [_vm._v("\n          Editar\n        ")]
                   )
@@ -30044,6 +30202,11 @@ var render = function () {
                       attrs: {
                         "data-bs-toggle": _vm.excluir.dataToggle,
                         "data-bs-target": _vm.excluir.dataTarget,
+                      },
+                      on: {
+                        click: function ($event) {
+                          return _vm.setStore(obj)
+                        },
                       },
                     },
                     [_vm._v("\n          Excluir\n        ")]

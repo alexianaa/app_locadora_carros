@@ -31,6 +31,7 @@
           class="btn btn-outline-primary btn-sm" 
           :data-bs-toggle=editar.dataToggle 
           :data-bs-target=editar.dataTarget 
+          @click="setStore(obj)"
           >
             Editar
           </button>
@@ -42,6 +43,7 @@
           class="btn btn-outline-danger btn-sm" 
           :data-bs-toggle=excluir.dataToggle 
           :data-bs-target=excluir.dataTarget
+          @click="setStore(obj)"
           >
             Excluir
           </button>

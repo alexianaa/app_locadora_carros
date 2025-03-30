@@ -133,6 +133,36 @@
       </template>
       <template v-slot:rodape></template>
     </modal-component>
+
+    <!-- MODAL EXCLUIR MARCA -->
+    <modal-component id="modalMarcaExcluir" titulo="Excluir Marca">
+      <template v-slot:alertas>
+        <alert-component 
+          message="Marca excluida com sucesso" 
+          :detalhes="detalhes" 
+          v-if="transacaoStatus == 'success'" 
+          :type="transacaoStatus">
+        </alert-component>
+        <alert-component 
+          message="Erro ao excluir marca: " 
+          :detalhes="detalhes" 
+          v-if="transacaoStatus == 'danger'" 
+          :type="transacaoStatus">
+        </alert-component>
+      </template>
+      <template v-slot:conteudo v-if="transacaoStatus != 'success'">
+        <input-component titulo="ID">
+          <input type="text" class="form-control mb-3" :value="$store.state.item.id" disabled>
+        </input-component>
+        <input-component titulo="Nome">
+          <input type="text" class="form-control" :value="$store.state.item.nome" disabled>
+        </input-component>
+      </template>
+      <template v-slot:rodape>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-danger" v-if="transacaoStatus != 'success'" @click="excluir()">Excluir</button>
+      </template>
+    </modal-component>
   </div>
 </template>
 
@@ -170,6 +200,38 @@
       }
     },
     methods: {
+      excluir() {
+        let confirmacao = confirm('Tem certeza que deseja remover esta marca?');
+        if(!confirmacao) return false;
+        
+        let url = this.urlBase + '/' + this.$store.state.item.id;
+
+        let formData = new FormData();
+        formData.append('_method','delete');
+
+        let config = {
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': this.token
+          }
+        }
+
+        axios.post(url,formData,config)
+          .then(response => {
+            this.transacaoStatus = 'success'
+            this.detalhes = {
+              mensagem: response.data.msg,
+            }
+          })
+          .catch(errors => {
+            this.transacaoStatus = 'danger'
+            this.detalhes = {
+              mensagem: errors.response.data.erro,
+            }
+          });
+
+        this.carregarLista();
+      },
       pesquisar(){
         let filtro = ''
         for(let chave in this.busca) {
@@ -235,6 +297,7 @@
               dados: erros.response.data.errors
             }
           });
+          this.carregarLista();
       }
     }
   }
