@@ -14,7 +14,7 @@
                         help="idHelp"
                         texto-ajuda="Opcional. Informe o ID da Marca"
                       > 
-                        <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID">
+                        <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID" v-model="busca.id">
                       </input-component>
                     </div>
                     <div class="col mb-3">
@@ -24,13 +24,13 @@
                         help="nomeHelp"
                         texto-ajuda="Opcional. Informe o Nome da marca"
                       > 
-                        <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="Nome da Marca">
+                        <input type="text" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="Nome da Marca" v-model="busca.nome">
                       </input-component>
                     </div>
                 </div>
               </template>
               <template v-slot:rodape>
-                <button type="submit" class="btn btn-primary btn-sm">Pesquisar</button>
+                <button type="submit" class="btn btn-primary btn-sm float-end" @click="pesquisar()">Pesquisar</button>
               </template>
            </card-component>
 
@@ -62,6 +62,7 @@
         </div>
     </div>
 
+    <!-- MODAL -->
     <modal-component id="modalMarca" titulo="Adicionar Marca">
 
       <template v-slot:alertas>
@@ -116,12 +117,18 @@
     data() {
       return {
         urlBase: 'http://localhost:8000/api/v1/marca',
+        urlPaginacao: '',
+        urlFiltro: '',
         nomeMarca: '',
         arquivoImagem: [],
         transacaoStatus: '',
         detalhes: {},
         marcas: {
           data: []
+        },
+        busca: {
+          id: '',
+          nome: ''
         }
       }
     },
@@ -139,13 +146,31 @@
       }
     },
     methods: {
+      pesquisar(){
+        let filtro = ''
+        for(let chave in this.busca) {
+          if(this.busca[chave]){
+            if(filtro != '') filtro += ';'
+            filtro += chave + ':like:%' + this.busca[chave] + '%'
+          }
+        }
+        if(filtro){
+          this.urlFiltro = '&filtro=' + filtro;
+          this.urlPaginacao = 'page=1';
+        }
+        else this.urlFiltro = ''
+        this.carregarLista();
+      },
       paginacao(l){
-        if(l.url != null) {
-          this.urlBase = l.url;
+        if(l.url) {
+          this.urlPaginacao = l.url.split('?')[1];
           this.carregarLista();
         }
       },
       carregarLista(){
+        let url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro
+        console.log(url)
+
         let config = {
           headers: {
             'Accept': 'application/json',
@@ -153,7 +178,7 @@
           }
         }
 
-        axios.get(this.urlBase, config)
+        axios.get(url, config)
           .then(response => {this.marcas = response.data})
           .catch(erro => {console.log(erro)})
       },
