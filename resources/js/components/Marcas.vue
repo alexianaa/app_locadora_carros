@@ -55,7 +55,7 @@
             help="novoNomeHelp"
             texto-ajuda="Opcional. Informe o Nome da marca"
           > 
-            <input type="text" class="form-control" id="novoNome" aria-describedby="novoNomeHelp" placeholder="Nome">
+            <input type="text" class="form-control" id="novoNome" aria-describedby="novoNomeHelp" placeholder="Nome" v-model="nomeMarca">
           </input-component>
         </div>
   
@@ -66,7 +66,7 @@
             help="novoImagemHelp"
             texto-ajuda="Opcional. Selecione uma imagem png, jpeg ou jpg."
           > 
-            <input type="file" class="form-control" id="novoImagem" aria-describedby="novoImagemHelp" placeholder="Selecione uma imagem">
+            <input type="file" class="form-control" id="novoImagem" aria-describedby="novoImagemHelp" placeholder="Selecione uma imagem" @change="carregarImagem($event)">
           </input-component>
         </div>
       </template>
@@ -80,5 +80,17 @@
 </template>
 
 <script>
-
+  export default {
+    data() {
+      return {
+        nomeMarca: '',
+        arquivoImagem: []
+      }
+    },
+    methods: {
+      carregarImagem(e){
+        this.arquivoImagem = e.target.files
+      }
+    }
+  }
 </script>
