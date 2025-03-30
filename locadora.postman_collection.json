@@ -27,19 +27,28 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzQzMTg0NDMzLCJleHAiOjE3NDMxODgwMzMsIm5iZiI6MTc0MzE4NDQzMywianRpIjoiREJoNVZTeHhLTW02blJVUCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.wjImItwY-zZlpAJjlhNUB6TTdnayjoPO15JPsLYn8-U",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Accept",
 								"value": "application/json",
-								"type": "text",
-								"disabled": true
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/marca?atributos=id,nome,imagem&atributos_modelos=marca_id,nome,imagem&filtro=nome:like:%Vol%;id:=:11",
+							"raw": "{{base_url}}{{version}}/marca?atributos=id,nome,imagem&atributos_modelos=marca_id,nome,imagem&filtro=nome:like:%Vol%;id:=:11",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"marca"
@@ -83,9 +92,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/marca/12",
+							"raw": "{{base_url}}{{version}}/marca/12",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"marca",
@@ -126,9 +135,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/marca/9",
+							"raw": "{{base_url}}{{version}}/marca/9",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"marca",
@@ -187,9 +196,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/marca/12",
+							"raw": "{{base_url}}{{version}}/marca/12",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"marca",
@@ -227,9 +236,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/marca",
+							"raw": "{{base_url}}{{version}}/marca",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"marca"
@@ -270,9 +279,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/modelo",
+							"raw": "{{base_url}}{{version}}/modelo",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"modelo"
@@ -309,9 +318,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/modelo?atributos_marca=nome",
+							"raw": "{{base_url}}{{version}}/modelo?atributos_marca=nome",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"modelo"
@@ -353,9 +362,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/modelo?atributos=id,nome,marca_id&atributos_marca=id,nome&filtro=abs:=:1;numero_portas:=:4;nome:like:%Ford%",
+							"raw": "{{base_url}}{{version}}/modelo?atributos=id,nome,marca_id&atributos_marca=id,nome&filtro=abs:=:1;numero_portas:=:4;nome:like:%Ford%",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"modelo"
@@ -432,9 +441,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/modelo",
+							"raw": "{{base_url}}{{version}}/modelo",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"modelo"
@@ -463,9 +472,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/modelo/2",
+							"raw": "{{base_url}}{{version}}/modelo/2",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"modelo",
@@ -539,9 +548,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/modelo/5",
+							"raw": "{{base_url}}{{version}}/modelo/5",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"modelo",
@@ -581,9 +590,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/modelo/1",
+							"raw": "{{base_url}}{{version}}/modelo/1",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"modelo",
@@ -626,9 +635,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/carro",
+							"raw": "{{base_url}}{{version}}/carro",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"carro"
@@ -664,9 +673,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/carro?atributos=id,placa,modelo_id&atributos_modelo=id,nome&filtro=km:<:1000",
+							"raw": "{{base_url}}{{version}}/carro?atributos=id,placa,modelo_id&atributos_modelo=id,nome&filtro=km:<:1000",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"carro"
@@ -728,9 +737,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/carro",
+							"raw": "{{base_url}}{{version}}/carro",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"carro"
@@ -759,9 +768,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/carro/1",
+							"raw": "{{base_url}}{{version}}/carro/1",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"carro",
@@ -814,9 +823,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/carro/1",
+							"raw": "{{base_url}}{{version}}/carro/1",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"carro",
@@ -856,9 +865,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/carro/1",
+							"raw": "{{base_url}}{{version}}/carro/1",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"carro",
@@ -901,9 +910,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/cliente",
+							"raw": "{{base_url}}{{version}}/cliente",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"cliente"
@@ -939,9 +948,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/cliente?atributos=nome&filtro=nome:like:%van%",
+							"raw": "{{base_url}}{{version}}/cliente?atributos=nome&filtro=nome:like:%van%",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"cliente"
@@ -983,9 +992,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/cliente",
+							"raw": "{{base_url}}{{version}}/cliente",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"cliente"
@@ -1014,9 +1023,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/cliente/1",
+							"raw": "{{base_url}}{{version}}/cliente/1",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"cliente",
@@ -1054,9 +1063,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/cliente/1",
+							"raw": "{{base_url}}{{version}}/cliente/1",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"cliente",
@@ -1096,9 +1105,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/cliente/1",
+							"raw": "{{base_url}}{{version}}/cliente/1",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"cliente",
@@ -1131,19 +1140,28 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzQzMTgyNzg1LCJleHAiOjE3NDMxODYzODUsIm5iZiI6MTc0MzE4Mjc4NSwianRpIjoiekUzdlVoTVFtSnlqcjBCdiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.o9r7QMvFDSEcOCqmXalNHhWoL8YsKpGNntz4rN9U7W0",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
 								"key": "Accept",
 								"value": "application/json",
-								"type": "text",
-								"disabled": true
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/locacao",
+							"raw": "{{base_url}}{{version}}/locacao",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"locacao"
@@ -1179,9 +1197,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base_url}}/locacao?atributos=carro_id&filtro=valor_diaria:<:50",
+							"raw": "{{base_url}}{{version}}/locacao?atributos=carro_id&filtro=valor_diaria:<:50",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"locacao"
@@ -1259,9 +1277,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/locacao",
+							"raw": "{{base_url}}{{version}}/locacao",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"locacao"
@@ -1339,9 +1357,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base_url}}/locacao/3",
+							"raw": "{{base_url}}{{version}}/locacao/3",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"locacao",
@@ -1371,9 +1389,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/locacao/3",
+							"raw": "{{base_url}}{{version}}/locacao/3",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"locacao",
@@ -1414,9 +1432,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/locacao/3",
+							"raw": "{{base_url}}{{version}}/locacao/3",
 							"host": [
-								"{{base_url}}"
+								"{{base_url}}{{version}}"
 							],
 							"path": [
 								"locacao",
@@ -1424,6 +1442,130 @@
 							]
 						},
 						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "alexia@teste.com.br",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzQzMTg0NDMzLCJleHAiOjE3NDMxODgwMzMsIm5iZiI6MTc0MzE4NDQzMywianRpIjoiREJoNVZTeHhLTW02blJVUCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.wjImItwY-zZlpAJjlhNUB6TTdnayjoPO15JPsLYn8-U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzQzMTg0NDMzLCJleHAiOjE3NDMxODgwMzMsIm5iZiI6MTc0MzE4NDQzMywianRpIjoiREJoNVZTeHhLTW02blJVUCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.wjImItwY-zZlpAJjlhNUB6TTdnayjoPO15JPsLYn8-U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzQzMTg0NDMzLCJleHAiOjE3NDMxODgwMzMsIm5iZiI6MTc0MzE4NDQzMywianRpIjoiREJoNVZTeHhLTW02blJVUCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.wjImItwY-zZlpAJjlhNUB6TTdnayjoPO15JPsLYn8-U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{version}}/me",
+							"host": [
+								"{{base_url}}{{version}}"
+							],
+							"path": [
+								"me"
+							]
+						}
 					},
 					"response": []
 				}
@@ -1488,6 +1630,11 @@
 		},
 		{
 			"key": "url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "version",
 			"value": "",
 			"type": "string"
 		}

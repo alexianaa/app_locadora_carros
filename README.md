@@ -6,6 +6,8 @@ A aplicação serve como um estudo de CRUD e criação de API com laravel php, n
 
 É possível acessar a documentação para importar no postman usando o arquivo **locadora.postman_collection.json**.
 
+> Rotas protegidas pela autenticação jwt
+
 ## Ambiente de desenvolvimento
 
 1. Composer install
@@ -13,6 +15,9 @@ A aplicação serve como um estudo de CRUD e criação de API com laravel php, n
 3. php artisan key:generate
 4. ajustar variáveis env para conexão com o banco 
 5. php artisan jwt:secret
+6. npm install
+7. npm run dev
+8. php artisan serve
 
 ## Funcionalidades
 
@@ -33,6 +38,13 @@ Para cada um acima é possível:
 - Cadastrar
 - Atualizar
 - Excluir
+
+Ainda há as rotas de:
+
+1. login: devolve um token necessário para as rotas protegidas
+2. logout: invalida o token
+3. refresh: atualiza o token
+4. me: traz informações não sensíveis do usuário logado
 
 ## Relacionamentos
 
