@@ -38,8 +38,8 @@ public function messages()
 {
     return [
         'required' => 'O campo :attribute é obrigatório',
-        'unique' => 'O campo :attribute precisa ser único',
-        'file' => 'O campo :attribute ser do tipo arquivo',
+        'unique' => 'O valor do campo :attribute já existe',
+        'file' => 'O campo :attribute deve conter um arquivo',
         'mimes' => 'O campo :attribute precisa ser um arquivo nos formatos png, jpeg ou jpg',
     ];
 }

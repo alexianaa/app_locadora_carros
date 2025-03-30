@@ -36,7 +36,7 @@ class UpdateMarcaRequest extends FormRequest
 public function messages()
 {
     return [
-        'unique' => 'O campo :attribute precisa ser único',
+        'unique' => 'O valor do campo :attribute já existe',
     ];
 }
 }
