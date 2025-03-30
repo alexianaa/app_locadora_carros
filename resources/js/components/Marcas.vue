@@ -49,8 +49,19 @@
     <modal-component id="modalMarca" titulo="Adicionar Marca">
 
       <template v-slot:alertas>
-        <alert-component message="Marca adicionada com sucesso." :detalhes="detalhes" v-if="transacaoStatus == 'success'" :type="transacaoStatus"></alert-component>
-        <alert-component message="Erro ao adicionar marca: " :detalhes="detalhes" v-if="transacaoStatus == 'danger'" :type="transacaoStatus"></alert-component>
+        <alert-component 
+          message="Marca adicionada com sucesso." 
+          :detalhes="detalhes" 
+          v-if="transacaoStatus == 'success'" 
+          :type="transacaoStatus">
+        </alert-component>
+
+        <alert-component 
+          message="Erro ao adicionar marca: " 
+          :detalhes="detalhes" 
+          v-if="transacaoStatus == 'danger'" 
+          :type="transacaoStatus">
+        </alert-component>
       </template>
 
       <template v-slot:conteudo>
@@ -93,7 +104,7 @@
         nomeMarca: '',
         arquivoImagem: [],
         transacaoStatus: '',
-        detalhes: []
+        detalhes: {}
       }
     },
     computed: {
@@ -125,11 +136,17 @@
         axios.post(this.urlBase, formData, config)
           .then(response => {
             this.transacaoStatus = 'success';
-            this.detalhes = response; 
+            this.detalhes = {
+              mensagem: "ID do registro: " + response.data.id
+            }; 
           })
           .catch(erros => {
             this.transacaoStatus = 'danger';
-            this.detalhes = erros.response;
+            this.detalhes = {
+              mensagem: erros.response.data.message,
+              dados: erros.response.data.errors
+            }
+
           });
       }
     }

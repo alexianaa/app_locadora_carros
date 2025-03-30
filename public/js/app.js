@@ -5188,6 +5188,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['message', 'type', 'detalhes'],
@@ -5503,6 +5505,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -5511,7 +5524,7 @@ __webpack_require__.r(__webpack_exports__);
       nomeMarca: '',
       arquivoImagem: [],
       transacaoStatus: '',
-      detalhes: []
+      detalhes: {}
     };
   },
   computed: {
@@ -5540,10 +5553,15 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios.post(this.urlBase, formData, config).then(function (response) {
         _this.transacaoStatus = 'success';
-        _this.detalhes = response;
+        _this.detalhes = {
+          mensagem: "ID do registro: " + response.data.id
+        };
       })["catch"](function (erros) {
         _this.transacaoStatus = 'danger';
-        _this.detalhes = erros.response;
+        _this.detalhes = {
+          mensagem: erros.response.data.message,
+          dados: erros.response.data.errors
+        };
       });
     }
   }
@@ -27538,14 +27556,12 @@ var render = function () {
     _vm._v("\n " + _vm._s(_vm.message) + "\n "),
     _c("hr"),
     _vm._v(" "),
-    _vm.detalhes.data.id
-      ? _c("div", [_vm._v("ID do registro: " + _vm._s(_vm.detalhes.data.id))])
-      : _vm._e(),
+    _c("p", [_vm._v(_vm._s(_vm.detalhes.mensagem))]),
     _vm._v(" "),
-    _vm.detalhes.data.errors
+    _vm.detalhes.dados
       ? _c(
           "ul",
-          _vm._l(_vm.detalhes.data.errors, function (e, key) {
+          _vm._l(_vm.detalhes.dados, function (e, key) {
             return _c("li", { key: key }, [_vm._v(_vm._s(e[0]))])
           }),
           0
