@@ -40,11 +40,42 @@
                 <table-component></table-component>
               </template>
               <template v-slot:rodape>
-                <button type="submit" class="btn btn-primary btn-sm">Adicionar</button>
+                <button type="submit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalMarca" >Adicionar</button>
               </template>
             </card-component>
         </div>
     </div>
+
+    <modal-component id="modalMarca" titulo="Adicionar Marca">
+      <template v-slot:conteudo>
+        <div class="form-group">
+          <input-component 
+            titulo="Nome da Marca" 
+            id="novoNome"
+            help="novoNomeHelp"
+            texto-ajuda="Opcional. Informe o Nome da marca"
+          > 
+            <input type="text" class="form-control" id="novoNome" aria-describedby="novoNomeHelp" placeholder="Nome">
+          </input-component>
+        </div>
+  
+        <div class="form-group">
+          <input-component 
+            titulo="Imagem" 
+            id="novoImagem"
+            help="novoImagemHelp"
+            texto-ajuda="Opcional. Selecione uma imagem png, jpeg ou jpg."
+          > 
+            <input type="file" class="form-control" id="novoImagem" aria-describedby="novoImagemHelp" placeholder="Selecione uma imagem">
+          </input-component>
+        </div>
+      </template>
+      <template v-slot:rodape>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Salvar</button>
+      </template>
+    </modal-component>
+    
   </div>
 </template>
 

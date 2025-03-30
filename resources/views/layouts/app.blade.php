@@ -47,7 +47,7 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#">Carros</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Marcas</a>
+                                    <a class="dropdown-item" href="#    ">Marcas</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Modelos</a>
                                 </div>
@@ -93,6 +93,23 @@
                 </div>
             </div>
         </nav>
+
+        @auth       
+        <div class="container">
+            <!-- Breadcrumb alinhado -->
+            <div class="row">
+                <div class="col">
+                    <nav class="mt-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ Route::currentRouteName() }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    
+        @endauth
 
         <main class="py-4">
             @yield('content')
