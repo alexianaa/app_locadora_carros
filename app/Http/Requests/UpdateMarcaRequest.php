@@ -23,8 +23,10 @@ class UpdateMarcaRequest extends FormRequest
      */
     public function rules()
     {
+        $marcaId = $this->route('marca');
+
         return [
-            'nome' => "unique:marcas",
+            'nome' => "min:3|unique:marcas,nome,{$marcaId},id",
         ];
     }
 
@@ -37,6 +39,8 @@ public function messages()
 {
     return [
         'unique' => 'O valor do campo :attribute já existe',
+        'min' => 'O campo :attribute deve ter no mínimo :min caracteres',
+        'required' => 'O campo :attribute não pode ser vazio',
     ];
 }
 }

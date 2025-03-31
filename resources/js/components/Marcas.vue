@@ -131,7 +131,9 @@
           <input type="text" class="form-control" :value="$store.state.item.created_at" disabled>
         </input-component>
       </template>
-      <template v-slot:rodape></template>
+      <template v-slot:rodape>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </template>
     </modal-component>
 
     <!-- MODAL EXCLUIR MARCA -->
@@ -163,6 +165,51 @@
         <button type="button" class="btn btn-danger" v-if="transacaoStatus != 'success'" @click="excluir()">Excluir</button>
       </template>
     </modal-component>
+
+    <!-- MODAL ATUALIZAR MARCA -->
+    <modal-component id="modalMarcaEditar" titulo="Atualizar Marca">
+      <template v-slot:alertas>
+        <alert-component 
+          message="Marca atualizada com sucesso" 
+          :detalhes="detalhes" 
+          v-if="transacaoStatus == 'success'" 
+          :type="transacaoStatus">
+        </alert-component>
+        <alert-component 
+          message="Erro ao atualizar marca: " 
+          :detalhes="detalhes" 
+          v-if="transacaoStatus == 'danger'" 
+          :type="transacaoStatus">
+        </alert-component>
+      </template>
+      <template v-slot:conteudo>
+        <div class="form-group">
+          <input-component 
+            titulo="Nome" 
+            id="atualizarNome"
+            help="atualizarNomeHelp"
+            texto-ajuda="Opcional. Informe o Nome da marca"
+          > 
+            <input type="text" class="form-control" id="atualizarNome" aria-describedby="atualizarNomeHelp" placeholder="Nome" v-model="$store.state.item.nome">
+          </input-component>
+        </div>
+        <div class="form-group">
+          <input-component 
+            titulo="Imagem" 
+            id="atualizarImagem"
+            help="atualizarImagemHelp"
+            texto-ajuda="Opcional. Selecione uma imagem png, jpeg ou jpg."
+          > 
+            <input type="file" class="form-control" id="atualizarImagem" aria-describedby="atualizarImagemHelp" placeholder="Selecione uma imagem" @change="carregarImagem($event)">
+          </input-component>
+        </div>
+      </template>
+      <template v-slot:rodape>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" @click="atualizar()">Atualizar</button>
+      </template>
+    </modal-component>
+
   </div>
 </template>
 
@@ -200,6 +247,39 @@
       }
     },
     methods: {
+      atualizar(){
+        let url = this.urlBase + '/' + this.$store.state.item.id;
+
+        let formData = new FormData();
+        formData.append('_method','patch');
+        formData.append('nome',this.$store.state.item.nome);
+        if(this.arquivoImagem[0]) formData.append('imagem',this.arquivoImagem[0]);
+
+        let config = {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Accept': 'application/json',
+            'Authorization': this.token
+          }
+        }
+
+        axios.post(url,formData,config)
+          .then(response => {
+            this.transacaoStatus = 'success'
+            this.detalhes = {
+              mensagem: response.data.msg,
+            }
+            atualizarImagem.value = '';
+            this.carregarLista();
+          })
+          .catch(errors => {
+            this.transacaoStatus = 'danger'
+            this.detalhes = {
+              mensagem: errors.response.data.message
+            }
+          });
+
+      },
       excluir() {
         let confirmacao = confirm('Tem certeza que deseja remover esta marca?');
         if(!confirmacao) return false;
@@ -289,6 +369,7 @@
             this.detalhes = {
               mensagem: "ID do registro: " + response.data.id
             }; 
+            this.carregarLista();
           })
           .catch(erros => {
             this.transacaoStatus = 'danger';
@@ -297,7 +378,6 @@
               dados: erros.response.data.errors
             }
           });
-          this.carregarLista();
       }
     }
   }

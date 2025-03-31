@@ -6852,6 +6852,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6884,8 +6931,36 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    excluir: function excluir() {
+    atualizar: function atualizar() {
       var _this = this;
+      var url = this.urlBase + '/' + this.$store.state.item.id;
+      var formData = new FormData();
+      formData.append('_method', 'patch');
+      formData.append('nome', this.$store.state.item.nome);
+      if (this.arquivoImagem[0]) formData.append('imagem', this.arquivoImagem[0]);
+      var config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': this.token
+        }
+      };
+      axios.post(url, formData, config).then(function (response) {
+        _this.transacaoStatus = 'success';
+        _this.detalhes = {
+          mensagem: response.data.msg
+        };
+        atualizarImagem.value = '';
+        _this.carregarLista();
+      })["catch"](function (errors) {
+        _this.transacaoStatus = 'danger';
+        _this.detalhes = {
+          mensagem: errors.response.data.message
+        };
+      });
+    },
+    excluir: function excluir() {
+      var _this2 = this;
       var confirmacao = confirm('Tem certeza que deseja remover esta marca?');
       if (!confirmacao) return false;
       var url = this.urlBase + '/' + this.$store.state.item.id;
@@ -6898,13 +6973,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.post(url, formData, config).then(function (response) {
-        _this.transacaoStatus = 'success';
-        _this.detalhes = {
+        _this2.transacaoStatus = 'success';
+        _this2.detalhes = {
           mensagem: response.data.msg
         };
       })["catch"](function (errors) {
-        _this.transacaoStatus = 'danger';
-        _this.detalhes = {
+        _this2.transacaoStatus = 'danger';
+        _this2.detalhes = {
           mensagem: errors.response.data.erro
         };
       });
@@ -6931,7 +7006,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     carregarLista: function carregarLista() {
-      var _this2 = this;
+      var _this3 = this;
       var url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro;
       console.log(url);
       var config = {
@@ -6941,7 +7016,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.get(url, config).then(function (response) {
-        _this2.marcas = response.data;
+        _this3.marcas = response.data;
       })["catch"](function (erro) {
         console.log(erro);
       });
@@ -6950,7 +7025,7 @@ __webpack_require__.r(__webpack_exports__);
       this.arquivoImagem = e.target.files;
     },
     salvar: function salvar() {
-      var _this3 = this;
+      var _this4 = this;
       var formData = new FormData();
       formData.append('nome', this.nomeMarca);
       formData.append('imagem', this.arquivoImagem[0]);
@@ -6962,18 +7037,18 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       axios.post(this.urlBase, formData, config).then(function (response) {
-        _this3.transacaoStatus = 'success';
-        _this3.detalhes = {
+        _this4.transacaoStatus = 'success';
+        _this4.detalhes = {
           mensagem: "ID do registro: " + response.data.id
         };
+        _this4.carregarLista();
       })["catch"](function (erros) {
-        _this3.transacaoStatus = 'danger';
-        _this3.detalhes = {
+        _this4.transacaoStatus = 'danger';
+        _this4.detalhes = {
           mensagem: erros.response.data.message,
           dados: erros.response.data.errors
         };
       });
-      this.carregarLista();
     }
   }
 });
@@ -29874,7 +29949,16 @@ var render = function () {
           {
             key: "rodape",
             fn: function () {
-              return undefined
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                  },
+                  [_vm._v("Fechar")]
+                ),
+              ]
             },
             proxy: true,
           },
@@ -29973,6 +30057,163 @@ var render = function () {
           null,
           true
         ),
+      }),
+      _vm._v(" "),
+      _c("modal-component", {
+        attrs: { id: "modalMarcaEditar", titulo: "Atualizar Marca" },
+        scopedSlots: _vm._u([
+          {
+            key: "alertas",
+            fn: function () {
+              return [
+                _vm.transacaoStatus == "success"
+                  ? _c("alert-component", {
+                      attrs: {
+                        message: "Marca atualizada com sucesso",
+                        detalhes: _vm.detalhes,
+                        type: _vm.transacaoStatus,
+                      },
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.transacaoStatus == "danger"
+                  ? _c("alert-component", {
+                      attrs: {
+                        message: "Erro ao atualizar marca: ",
+                        detalhes: _vm.detalhes,
+                        type: _vm.transacaoStatus,
+                      },
+                    })
+                  : _vm._e(),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "conteudo",
+            fn: function () {
+              return [
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c(
+                      "input-component",
+                      {
+                        attrs: {
+                          titulo: "Nome",
+                          id: "atualizarNome",
+                          help: "atualizarNomeHelp",
+                          "texto-ajuda": "Opcional. Informe o Nome da marca",
+                        },
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.$store.state.item.nome,
+                              expression: "$store.state.item.nome",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "atualizarNome",
+                            "aria-describedby": "atualizarNomeHelp",
+                            placeholder: "Nome",
+                          },
+                          domProps: { value: _vm.$store.state.item.nome },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.$store.state.item,
+                                "nome",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c(
+                      "input-component",
+                      {
+                        attrs: {
+                          titulo: "Imagem",
+                          id: "atualizarImagem",
+                          help: "atualizarImagemHelp",
+                          "texto-ajuda":
+                            "Opcional. Selecione uma imagem png, jpeg ou jpg.",
+                        },
+                      },
+                      [
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "file",
+                            id: "atualizarImagem",
+                            "aria-describedby": "atualizarImagemHelp",
+                            placeholder: "Selecione uma imagem",
+                          },
+                          on: {
+                            change: function ($event) {
+                              return _vm.carregarImagem($event)
+                            },
+                          },
+                        }),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ]
+            },
+            proxy: true,
+          },
+          {
+            key: "rodape",
+            fn: function () {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-bs-dismiss": "modal" },
+                  },
+                  [_vm._v("Fechar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        return _vm.atualizar()
+                      },
+                    },
+                  },
+                  [_vm._v("Atualizar")]
+                ),
+              ]
+            },
+            proxy: true,
+          },
+        ]),
       }),
     ],
     1
