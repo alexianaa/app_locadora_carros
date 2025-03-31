@@ -42666,7 +42666,12 @@ axios.interceptors.response.use(function (response) {
   console.log('interceptando a resposta antes do envio', response);
   return response;
 }, function (error) {
-  console.log('erro da resposta', error);
+  if (error.response.status == 401 && error.response.data.message == 'Token has expired') {
+    axios.post("http://localhost:8000/api/refresh").then(function (response) {
+      document.cookie = 'token=' + response.data;
+      window.location.reload();
+    });
+  }
   return Promise.reject(error);
 });
 
