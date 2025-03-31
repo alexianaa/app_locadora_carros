@@ -7184,6 +7184,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['dados', 'titulos', 'visualizar', 'editar', 'excluir'],
@@ -30388,6 +30389,14 @@ var render = function () {
                         },
                       }),
                     ])
+                  : _vm.titulos[chaveValor].dado == "date"
+                  ? _c("span", [
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm._f("formataDataTempoGlobal")(valor)) +
+                          " "
+                      ),
+                    ])
                   : _c("span", [_vm._v(_vm._s(valor))]),
               ])
             }),
@@ -42603,6 +42612,16 @@ Vue.component('paginate-component', (__webpack_require__(/*! ./components/Pagina
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.filter('formataDataTempoGlobal', function (d) {
+  if (!d) return '';
+  d = d.split('T');
+  var data = d[0];
+  data = data.split('-');
+  data = data[2] + '/' + data[1] + '/' + data[0];
+  var tempo = d[1];
+  tempo = tempo.split('.');
+  return data + " " + tempo[0];
+});
 var app = new Vue({
   el: '#app',
   store: store

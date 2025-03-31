@@ -10,6 +10,7 @@
       <tr v-for="obj,chave in dadosFiltrados" :key="chave">
         <td v-for="valor,chaveValor in obj" :key="chaveValor">
           <span v-if="titulos[chaveValor].dado == 'img'"> <img :src="'/storage/'+valor" width="30" height="30" > </span> 
+          <span v-else-if="titulos[chaveValor].dado == 'date'"> {{ valor | formataDataTempoGlobal }} </span> 
           <span v-else>{{ valor }}</span> 
         </td>
 
