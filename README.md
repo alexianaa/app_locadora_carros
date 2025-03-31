@@ -1,12 +1,12 @@
-# API DE LOCADORA DE CARROS
+# LOCADORA DE CARROS
 
-![Postman](./postman.png)
+**Em desenvolvimento**
 
-A aplicação serve como um estudo de CRUD e criação de API com laravel php, não há interface apenas o back end. 
+![página home](./home.png)
 
-É possível acessar a documentação para importar no postman usando o arquivo **locadora.postman_collection.json**.
+É possível baixar o arquivo **locadora.postman_collection.json** para importar as rotas do back-end no postman.
 
-> Rotas protegidas pela autenticação jwt
+> Rotas protegidas pela autenticação jwt -> bearer token
 
 ## Ambiente de desenvolvimento
 
@@ -20,6 +20,14 @@ A aplicação serve como um estudo de CRUD e criação de API com laravel php, n
 8. php artisan storage:link
 9. php artisan serve
 
+## Telas
+
+- login
+- cadastro
+- esqueci a senha
+- home
+- veículos -> marcas (adicionar, visualizar, editar, pesquisar e remover)
+
 ## Funcionalidades
 
 Simulador de locadora de carros
@@ -30,7 +38,7 @@ Simulador de locadora de carros
 - Cliente
 - Locacao
 
-Para cada um acima é possível:
+Para cada um acima no backend é possível:
 
 - Criar
 - Pesquisar todos

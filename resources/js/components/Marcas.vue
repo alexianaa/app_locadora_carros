@@ -316,7 +316,7 @@
       },
       carregarLista(){
         let url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro
-        console.log(url)
+        //console.log(url)
 
         axios.get(url)
           .then(response => {this.marcas = response.data})

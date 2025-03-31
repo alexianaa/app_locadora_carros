@@ -6992,7 +6992,8 @@ __webpack_require__.r(__webpack_exports__);
     carregarLista: function carregarLista() {
       var _this3 = this;
       var url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro;
-      console.log(url);
+      //console.log(url)
+
       axios.get(url).then(function (response) {
         _this3.marcas = response.data;
       })["catch"](function (erro) {
@@ -42663,7 +42664,6 @@ axios.interceptors.request.use(function (config) {
  * Interceptar os responses da aplicação
  */
 axios.interceptors.response.use(function (response) {
-  console.log('interceptando a resposta antes do envio', response);
   return response;
 }, function (error) {
   if (error.response.status == 401 && error.response.data.message == 'Token has expired') {

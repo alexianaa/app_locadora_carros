@@ -64,7 +64,6 @@ axios.interceptors.request.use(
  */
 axios.interceptors.response.use(
     response => {
-        console.log('interceptando a resposta antes do envio', response)
         return response
     },
     error => {
