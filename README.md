@@ -1,6 +1,10 @@
 # LOCADORA DE CARROS
 
+Simula um site de locadora de carros
+
 **Em desenvolvimento**
+
+> Laravel, php e vue.js
 
 ![página home](./home.png)
 
