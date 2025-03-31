@@ -4,7 +4,7 @@ Simula um site de locadora de carros
 
 **Em desenvolvimento**
 
-> Laravel, php e vue.js
+> Laravel, php e vue.js. Banco de dados MySql
 
 ![página home](./home.png)
 
