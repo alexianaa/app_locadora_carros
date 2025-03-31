@@ -6922,14 +6922,6 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.carregarLista();
   },
-  computed: {
-    token: function token() {
-      var token = document.cookie.split(';').find(function (index) {
-        return index.includes('token');
-      }).split('=');
-      return 'Bearer ' + token[1];
-    }
-  },
   methods: {
     atualizar: function atualizar() {
       var _this = this;
@@ -6940,9 +6932,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.arquivoImagem[0]) formData.append('imagem', this.arquivoImagem[0]);
       var config = {
         headers: {
-          'Content-Type': 'multipart/form-data',
-          'Accept': 'application/json',
-          'Authorization': this.token
+          'Content-Type': 'multipart/form-data'
         }
       };
       axios.post(url, formData, config).then(function (response) {
@@ -6966,13 +6956,7 @@ __webpack_require__.r(__webpack_exports__);
       var url = this.urlBase + '/' + this.$store.state.item.id;
       var formData = new FormData();
       formData.append('_method', 'delete');
-      var config = {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': this.token
-        }
-      };
-      axios.post(url, formData, config).then(function (response) {
+      axios.post(url, formData).then(function (response) {
         _this2.transacaoStatus = 'success';
         _this2.detalhes = {
           mensagem: response.data.msg
@@ -7009,13 +6993,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
       var url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro;
       console.log(url);
-      var config = {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': this.token
-        }
-      };
-      axios.get(url, config).then(function (response) {
+      axios.get(url).then(function (response) {
         _this3.marcas = response.data;
       })["catch"](function (erro) {
         console.log(erro);
@@ -7031,9 +7009,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('imagem', this.arquivoImagem[0]);
       var config = {
         headers: {
-          'Conotent-Type': 'multipart/form-data',
-          'Accept': 'application/json',
-          'Authorization': this.token
+          'Conotent-Type': 'multipart/form-data'
         }
       };
       axios.post(this.urlBase, formData, config).then(function (response) {
@@ -42665,6 +42641,34 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/**
+ * Interceptar os requests das aplicações
+ */
+axios.interceptors.request.use(function (config) {
+  // definir para todas as requisições accept e authorization
+  config.headers['Accept'] = 'application/json';
+  var token = document.cookie.split(';').find(function (index) {
+    return index.includes('token');
+  }).split('=');
+  token = 'Bearer ' + token[1];
+  config.headers['Authorization'] = token;
+  return config;
+}, function (error) {
+  console.log('erro da requisicao', error);
+  return Promise.reject(error);
+});
+
+/**
+ * Interceptar os responses da aplicação
+ */
+axios.interceptors.response.use(function (response) {
+  console.log('interceptando a resposta antes do envio', response);
+  return response;
+}, function (error) {
+  console.log('erro da resposta', error);
+  return Promise.reject(error);
+});
 
 /***/ }),
 

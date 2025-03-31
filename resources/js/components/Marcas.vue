@@ -236,16 +236,6 @@
     mounted() {
       this.carregarLista();
     },
-    computed: {
-      token() {
-        let token = document.cookie
-          .split(';')
-          .find(index => { return index.includes('token')})
-          .split('=');
-          
-        return 'Bearer ' + token[1]
-      }
-    },
     methods: {
       atualizar(){
         let url = this.urlBase + '/' + this.$store.state.item.id;
@@ -258,8 +248,6 @@
         let config = {
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Accept': 'application/json',
-            'Authorization': this.token
           }
         }
 
@@ -289,14 +277,7 @@
         let formData = new FormData();
         formData.append('_method','delete');
 
-        let config = {
-          headers: {
-            'Accept': 'application/json',
-            'Authorization': this.token
-          }
-        }
-
-        axios.post(url,formData,config)
+        axios.post(url,formData)
           .then(response => {
             this.transacaoStatus = 'success'
             this.detalhes = {
@@ -337,14 +318,7 @@
         let url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro
         console.log(url)
 
-        let config = {
-          headers: {
-            'Accept': 'application/json',
-            'Authorization': this.token
-          }
-        }
-
-        axios.get(url, config)
+        axios.get(url)
           .then(response => {this.marcas = response.data})
           .catch(erro => {console.log(erro)})
       },
@@ -358,12 +332,11 @@
 
         let config = {
           headers: {
-            'Conotent-Type': 'multipart/form-data',
-            'Accept': 'application/json',
-            'Authorization': this.token
+            'Conotent-Type': 'multipart/form-data'
           }
         }
-        axios.post(this.urlBase, formData, config)
+
+        axios.post(this.urlBase, formData,config)
           .then(response => {
             this.transacaoStatus = 'success';
             this.detalhes = {
